@@ -1,10 +1,4 @@
 ﻿using Fina.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Fina.Core.Models
 {
     public class Transaction
@@ -13,6 +7,7 @@ namespace Fina.Core.Models
         public string Title { get; set; } = string.Empty;
         public long CategoryId { get; set; }
         public Category Category { get; set; } = null!;
+        public decimal Amount { get; set; } = decimal.Zero;
         public ETransactionType TransactionType { get; set; }  = ETransactionType.Withdraw;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? PaidOrReceiveAt { get; set; }
