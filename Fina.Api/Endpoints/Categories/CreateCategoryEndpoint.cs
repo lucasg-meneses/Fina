@@ -8,9 +8,11 @@ namespace Fina.Api.Endpoints.Categories;
 
 public class CreateCategoryEndpoint : IEndpoint
 {
-    public static void Map(IEndpointRouteBuilder app) 
+    public static void Map(IEndpointRouteBuilder app)
     => app.MapPost("/", HandleAsync)
-        .WithName("")
+        .WithName("Categories: Created")
+        .WithDescription("Cadastra categoria")
+        .WithOrder(1)
         .Produces<Response<Category?>>();
 
     private static async Task<IResult> HandleAsync(ICategoryHandler handler, CreateCategoryRequest request)
