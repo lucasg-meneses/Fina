@@ -2,8 +2,8 @@
 {
     public abstract class PagedRequest : Request
     {
-        public long PageSize { get; set; } = Configuration.DefaultPageSize;
-        public long PageNumber { get; set; } = Configuration.DefaultPageNumber;
+        public int PageSize { get; set; } = Configuration.DefaultPageSize;
+        public int PageNumber { get; set; } = Configuration.DefaultPageNumber;
 
     }
 }

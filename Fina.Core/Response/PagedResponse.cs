@@ -5,16 +5,16 @@ namespace Fina.Core.Response
 {
     public class PagedResponse<TData> : Response<TData>
     {
-        public long CurrentPage { get; set; }
-        public long PageSize { get; set; } = Configuration.DefaultPageSize;
-        public long TotalPages => (long)Math.Ceiling(TotalCount / (double)PageSize);
-        public long TotalCount { get; set; }
+        public int CurrentPage { get; set; }
+        public int PageSize { get; set; } = Configuration.DefaultPageSize;
+        public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
+        public int TotalCount { get; set; }
         [JsonConstructor]
         public PagedResponse(
             TData? data,
-            long totalCount,
-            long currentPage = 1,
-            long pageSize = Configuration.DefaultPageSize)
+            int totalCount,
+            int currentPage = 1,
+            int pageSize = Configuration.DefaultPageSize)
             : base(data)
         {
             Data = data;

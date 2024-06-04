@@ -5,6 +5,7 @@ namespace Fina.Core.Models
     {
         public long Id { get; set; }
         public string Title { get; set; } = string.Empty;
+
         public long CategoryId { get; set; }
         public Category Category { get; set; } = null!;
         public decimal Amount { get; set; } = decimal.Zero;

@@ -4,7 +4,7 @@ using Fina.Core.Enums;
 namespace Fina.Core.Request.Transactions
 {
 
-    public class CreateTransactionRequest
+    public class CreateTransactionRequest : Request
     {   
         [Required(ErrorMessage ="Titulo inválido")]
         public string Title { get; set;} = string.Empty;

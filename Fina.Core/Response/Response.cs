@@ -2,7 +2,7 @@
 
 namespace Fina.Core.Response
 {
-    public abstract class Response<TData>
+    public class Response<TData>
     {
         //HTTP Status
         private int _code = Configuration.DefaultStatusCode;
