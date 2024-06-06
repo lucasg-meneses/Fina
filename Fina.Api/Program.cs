@@ -1,20 +1,18 @@
 using Fina.Api;
-using Fina.Api.Data;
-using Fina.Core.Handlers;
-using Microsoft.EntityFrameworkCore;
+using Fina.Api.Common.Api;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// conexão banco
-const string connectionString = @"Host=localhost,5432;Username=postgres;Password=1234;Database=fina";
-builder.Services.AddDbContext<AppDbContext>(x => x.UseNpgsql(connectionString));
-// handlers config
-builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
-builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+//Add
+builder.AddConfiguration();
+builder.AddDataContexts();
+builder.AddCrossOrigin();
+builder.AddDocumentation();
+builder.AddServices();
 
 var app = builder.Build();
-
-
-app.MapGet("/", () => "Hello World!");
-
+if(app.Environment.IsDevelopment()){
+    app.ConfigureDevEnviroment();
+}
+app.UseCors(ApiConfiguration.CorsPolicyName);
+app.MapEndpoints();
 app.Run();

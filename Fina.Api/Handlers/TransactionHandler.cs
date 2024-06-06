@@ -24,7 +24,7 @@ public class TransactionHandler(AppDbContext context) : ITransactionHandler
             Amount = request.Amount,
             Title = request.Title,
             TransactionType = request.TransactionType,
-            CategoryId  = request.CategoryId,
+            CategoryId = request.CategoryId,
             UserId = request.UserId
         };
 
@@ -104,12 +104,43 @@ public class TransactionHandler(AppDbContext context) : ITransactionHandler
 
     public async Task<Response<Transaction?>> GetByIdAsync(GetTransactionByIdRequest request)
     {
-        throw new NotImplementedException();
+        var transaction = await context.Transactions
+        .AsNoTracking()
+        .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.Id == request.Id);
+
+        return transaction == null
+            ? new Response<Transaction?>(null, 404, "Transação não encontrada.")
+            : new Response<Transaction?>(transaction, message: "Transação encontrada com sucesso.");
+
     }
 
     public async Task<Response<Transaction?>> UpdateAsync(UpdatedTransactionRequest request)
     {
-        throw new NotImplementedException();
+         try
+        {
+            var transaction = await context.Transactions
+            .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.Id == request.Id);
+            if (transaction == null)
+            {
+                return new Response<Transaction?>(null, 404, "Transação não encontrada.");
+            }
+
+            transaction.Title = request.Title;
+            transaction.CategoryId = request.CategoryId;
+            transaction.Amount = request.Amount;
+            transaction.TransactionType = request.TransactionType;
+            transaction.PaidOrReceiveAt = request.PaidOrReceiveAt;
+            context.Update(transaction);
+            await context.SaveChangesAsync();
+
+            return new Response<Transaction?>(transaction, message: "Transação atualizada com sucesso");
+
+        }
+        catch
+        {
+            return new Response<Transaction?>(null, 400, "Não foi possivel atualizar a Transação");
+        }
+
     }
 
 }

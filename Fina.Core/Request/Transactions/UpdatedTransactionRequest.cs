@@ -6,6 +6,7 @@ namespace Fina.Core.Request.Transactions
 {
     public class UpdatedTransactionRequest : Request
     {
+        
 
         [Required(ErrorMessage = "Identificador inválido")]
         public long Id { get; set; }
@@ -16,6 +17,7 @@ namespace Fina.Core.Request.Transactions
 
         [Required(ErrorMessage = "Valor inválido")]
         public decimal Amount { get; set; }
+        public DateTime? PaidOrReceiveAt;
         public ETransactionType TransactionType { get; set; }
     }
 }
